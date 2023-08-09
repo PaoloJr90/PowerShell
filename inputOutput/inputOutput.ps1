@@ -31,8 +31,53 @@ $regex = "\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
 $logContent | Select-String -Pattern $regex -AllMatches
 # get just entries that have an IP address using Where-Object
 $logContent | Where-Object {$_ -like "*.*.*.*"}
+
 # Get-Content from .csv file
 $rawCSVInput = Get-Content C:\Users\pjang\OneDrive\Documents\GitHub\PowerShell\inputOutput\csv.csv
 $objData = $rawCSVInput | ConvertFrom-Csv
 
+#--------------------------------------------------------------------------------
+# PowerShell Output
+
+# Write-Host: writes to the console; can only handle strings
+# Output simple string to console
+Write-Host 'Text output to console'
+ 
+# Customize output to the console with colors:
+Write-Host "Warning" -ForegroundColor Yellow
+Write-Host "ERROR" -ForegroundColor Red
+Write-Host "Works Great" -ForegroundColor Blue
+Write-Host "CRITICAL ERROR" -BackgroundColor Red -ForegroundColor White
+
+# can only handle strings
+$hostInfo = Get-Host # $hostInfo is a PowerShell object, not a string
+Write-Host $hostInfo
+# instead, we can use this:
+$hostInfo = Get-Host
+Write-Host $hostInfo
+Write-Host $hostInfo.Version
+
+#--------------------------------------------------------------------------------
+# Write-Output: mostly implied as it is the default output behavior of PowerShell
+# These examples accomplish the same thing
+# Example 1
+Get-Process
+ 
+# Example 2
+$processes = Get-Process
+Write-Output $processes
+ 
+# Example 3
+$processes = Get-Process
+$processes
+
+#--------------------------------------------------------------------------------
+# Out-File: writes to a file
+
+$processes = Get-Process
+$processes | Out-File -Path C:\Users\pjang\OneDrive\Documents\GitHub\PowerShell\inputOutput\processes.txt
+
+# convert the file-type to a .csv file
+$processes | ConvertTo-Csv -NoTypeInformation | Out-File -Path C:\Users\pjang\OneDrive\Documents\GitHub\PowerShell\inputOutput\processes.csv
+# -NoTypeInformation parameter removes the type information from the first line of the .csv file (header information)
 
