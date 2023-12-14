@@ -56,6 +56,7 @@ Write-Host $hostInfo
 $hostInfo = Get-Host
 Write-Host $hostInfo
 Write-Host $hostInfo.Version
+# can use Write-Verbose to output the object; it is considered a "debug" output
 
 #--------------------------------------------------------------------------------
 # Write-Output: mostly implied as it is the default output behavior of PowerShell
@@ -75,9 +76,12 @@ $processes
 # Out-File: writes to a file
 
 $processes = Get-Process
-$processes | Out-File -Path C:\Users\pjang\OneDrive\Documents\GitHub\PowerShell\inputOutput\processes.txt
+$processes | Out-File -Path C:\Users\PaoloJr\Documents\GitHub\PowerShell\inputOutput\processes.txt
 
 # convert the file-type to a .csv file
-$processes | ConvertTo-Csv -NoTypeInformation | Out-File -Path C:\Users\pjang\OneDrive\Documents\GitHub\PowerShell\inputOutput\processes.csv
+$processes | ConvertTo-Csv -NoTypeInformation | Out-File -Path C:\Users\PaoloJr\Documents\GitHub\PowerShell\inputOutput\processes.csv
 # -NoTypeInformation parameter removes the type information from the first line of the .csv file (header information)
-
+# some useful parameters for the Out-File cmdlet:
+# -Append: appends the output to the end of the file
+# -NoClobber: prevents overwriting an existing file
+# -Encoding: specifies the encoding type of the file
